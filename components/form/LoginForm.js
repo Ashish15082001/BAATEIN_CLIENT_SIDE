@@ -38,7 +38,7 @@ const LoginForm = function () {
         </div>
         <div className={classes.mainform}>
           <div className={classes.mainformOne}>
-            <p>Don't have account?</p>
+            <p>{`Don't have account?`}</p>
             <button onClick={navigateToSignUp} className={classes.btn}>
               Create Account
             </button>

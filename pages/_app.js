@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps }) {
     <React.Fragment>
       <Head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
         <link
           href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=IBM+Plex+Serif:ital,wght@1,100&family=Lobster&family=Pacifico&family=Satisfy&display=swap"
           rel="stylesheet"
