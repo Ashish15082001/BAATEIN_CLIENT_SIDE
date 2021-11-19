@@ -54,15 +54,15 @@ const LoginForm = function () {
                   viewBox="0 0 24 24"
                   aria-labelledby="envelopeAltIconTitle"
                   stroke="#273443"
-                  stroke-width="1"
-                  stroke-linecap="square"
-                  stroke-linejoin="miter"
+                  strokeWidth="1"
+                  strokeLinecap="square"
+                  strokeLinejoin="miter"
                   fill="none"
                   color="#273443"
                 >
                   <title id="envelopeAltIconTitle">Envelope</title>
                   <rect width="20" height="14" x="2" y="5" />
-                  <path stroke-linecap="round" d="M2 5l10 9 10-9" />
+                  <path strokeLinecap="round" d="M2 5l10 9 10-9" />
                 </svg>
               </span>
               <input
@@ -83,9 +83,9 @@ const LoginForm = function () {
                   viewBox="0 0 24 24"
                   aria-labelledby="lockAltIconTitle"
                   stroke="#273443"
-                  stroke-width="1"
-                  stroke-linecap="square"
-                  stroke-linejoin="miter"
+                  strokeWidth="1"
+                  strokeLinecap="square"
+                  strokeLinejoin="miter"
                   fill="none"
                   color="#273443"
                 >

@@ -11,9 +11,9 @@ const HamburgerMenu = function (props) {
         viewBox="0 0 24 24"
         aria-labelledby="hamburgerIconTitle"
         stroke="#ffffff"
-        stroke-width="1.5"
-        stroke-linecap="square"
-        stroke-linejoin="miter"
+        strokeWidth="1.5"
+        strokeLinecap="square"
+        strokeLinejoin="miter"
         fill="none"
         color="#ffffff"
       >
