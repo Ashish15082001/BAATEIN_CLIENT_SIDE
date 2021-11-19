@@ -1,0 +1,61 @@
+.otherSender {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.self {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.selfMessage {
+  margin: 0.2rem;
+  padding: 1rem 1rem 1rem 1rem;
+  background-color: rgb(39, 52, 67);
+  color: white;
+  border-radius: 5px;
+  position: relative;
+  text-align: justify;
+  margin-left: 5rem;
+}
+
+.otherMessage {
+  margin: 0.2rem;
+  padding: 1rem 7rem 1rem 1rem;
+  background-color: rgb(204, 215, 228);
+  border-radius: 5px;
+  margin-right: 5rem;
+  position: relative;
+  text-align: justify;
+}
+
+/* .selfMessage::after {
+  content: "";
+  background-color: rgb(39, 52, 67);
+  border: 6px solid rgb(39, 52, 67);
+  position: absolute;
+  left: 94%;
+  top: 80%;
+  border-radius: 0 8px;
+}
+
+.otherMessage::before {
+  content: "";
+  background-color: rgb(204, 215, 228);
+  border: 6px solid rgb(204, 215, 228);
+  position: absolute;
+  right: 94%;
+  top: 80%;
+  border-radius: 8px 0;
+} */
+
+.chatList {
+  padding: 1rem;
+}
+
+.senderNameClass {
+  font-size: small;
+  position: absolute;
+  right: 5px;
+  bottom: 3px;
+}

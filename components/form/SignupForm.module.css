@@ -1,0 +1,136 @@
+.formMegaContainer {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background-color: rgba(149, 165, 184, 0.185);
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+  }
+  
+  .formContainer {
+    width: 60rem;
+    height: 40rem;
+    /* border: 1px solid black; */
+    box-shadow: 0 0 2rem 0 rgb(184, 182, 182);
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 0.3rem;
+    overflow: hidden;
+    display: flex;
+  }
+  
+  .introCard,
+  .mainform {
+    width: 50%;
+    height: 100%;
+    padding: 1rem;
+  }
+  
+  .introCard {
+    background-color: rgb(39, 52, 67);
+  }
+  
+  .introCard h1 {
+    color: white;
+    font-family: "Lobster", cursive;
+    letter-spacing: 0.14rem;
+    text-align: center;
+  }
+  
+  .mainform {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .mainformOne {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  
+  .mainformOne p {
+    margin: 0 1rem;
+    color: rgb(39, 52, 67);
+  }
+  
+  .btn {
+    background-color: rgb(39, 52, 67);
+    color: white;
+    padding: 1rem;
+    border: 1px solid rgb(39, 52, 67);
+    outline: none;
+    border-radius: 5px;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+  }
+  
+  .btn:hover {
+    color: rgb(39, 52, 67);
+    background-color: white;
+  }
+  
+  .btn:active {
+    transform: translateY(2px);
+  }
+  
+  .mainformTwo {
+    /* border: 1px solid black; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+  }
+  
+  .mainformTwo button {
+    width: 7rem;
+    margin-top: 2rem;
+    margin-top: 5rem;
+  }
+  
+  .inputContainer {
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    width: 300px;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    border-bottom: 2px solid rgb(39, 52, 67);
+  }
+  
+  .inputIccon svg {
+    display: block;
+  }
+  
+  .input {
+    font-size: 1rem;
+    transition: all 0.2s ease-in-out;
+    padding: 0 5px;
+    border: none;
+    outline: none;
+    width: 90%;
+  }
+  
+  @media screen and (max-width: 900px) {
+    .introCard {
+      display: none;
+    }
+  
+    .formContainer {
+      width: 90%;
+      box-shadow: 0 0 1rem 0 rgb(255, 255, 255);
+    }
+  
+    .mainform {
+      width: 100%;
+    }
+  
+    .formMegaContainer {
+      background-color: rgb(39, 52, 67);
+    }
+  }
+  

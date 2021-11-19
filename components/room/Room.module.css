@@ -1,0 +1,155 @@
+.mainContainer {
+  margin-top: 5rem;
+  border: none;
+  height: 30rem;
+  max-width: 60rem;
+  border-radius: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: white;
+  box-shadow: 0 0 1rem 0 grey;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: rgb(39, 52, 67);
+  padding: 1rem;
+}
+
+.subContainer {
+  padding: 0.5rem;
+  height: 100%;
+  width: 50%;
+  background-color: white;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.input {
+  padding: 0.7rem;
+  font-size: 1.1rem;
+}
+
+.btn {
+  border: 1px solid rgb(39, 52, 67);
+  padding: 1rem;
+  color: white;
+  background-color: rgb(39, 52, 67);
+  border-radius: 5px;
+  margin: 0.3rem 1rem;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  margin: 1rem;
+}
+
+.div1,
+.div2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50%;
+}
+
+.div1 {
+  padding-top: 4rem;
+}
+
+.div2 {
+  padding-bottom: 4rem;
+}
+
+.btn:hover {
+  background-color: white;
+  color: rgb(39, 52, 67);
+}
+
+.p {
+  display: inline;
+}
+
+.mainChatContainer {
+  width: 80%;
+  height: 45rem;
+  box-shadow: 0 0 1rem 0 grey;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.chatHeader {
+  height: 5rem;
+  width: 100%;
+  background-color: rgb(39, 52, 67);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  color: white;
+  padding: 1rem;
+  border-bottom: 5px solid white;
+}
+
+.rigthHeading {
+  margin-left: 20rem;
+}
+
+.activeUserSection {
+  height: 40rem;
+  width: 40%;
+}
+
+.chatSection {
+  height: 40rem;
+  width: 60%;
+  box-shadow: 0 0 1rem 0 grey;
+}
+
+.chatContainer {
+  height: 40rem;
+  width: 100%;
+  display: flex;
+}
+
+.chatDisplay {
+  height: 35rem;
+  width: 100%;
+  /* background-color: rgba(190, 206, 252, 0.185); */
+  overflow-y: scroll;
+}
+
+.typingSection {
+  height: 5rem;
+  width: 100%;
+  /* background-color: rgb(39, 52, 67); */
+  display: flex;
+  align-items: center;
+  padding: 0.3rem 1rem;
+  justify-content: space-between;
+}
+
+.typingBox {
+  padding: 0 1rem;
+  height: 2.5rem;
+  width: 80%;
+  border-radius: 5px;
+}
+
+.sendBtn {
+  background-color: rgb(39, 52, 67);
+  color: white;
+  border: 1px solid rgb(39, 52, 67);
+  height: 2.5rem;
+  width: 6rem;
+  border-radius: 5px;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.sendBtn:hover {
+  background-color: white;
+  color: rgb(39, 52, 67);
+}
