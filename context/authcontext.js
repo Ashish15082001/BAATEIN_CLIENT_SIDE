@@ -8,14 +8,7 @@ import {
 
 import React, { useState } from "react";
 import { auth, db } from "../components/firebase/App";
-import {
-  collection,
-  addDoc,
-  getDocs,
-  query,
-  where,
-  doc,
-} from "@firebase/firestore";
+import { collection, addDoc, getDocs, query, where } from "@firebase/firestore";
 
 export const AuthContext = React.createContext({
   currentUser: null,
@@ -30,8 +23,6 @@ const ContextProvider = function (props) {
   const [currentUser, setCurrentUser] = useState(null);
   const [userData, setUserData] = useState(null);
   const usersCollection = collection(db, "users");
-
-  console.log(currentUser, userData);
 
   const nextOrObserver = function (currentUser) {
     setCurrentUser(currentUser);
@@ -76,7 +67,6 @@ const ContextProvider = function (props) {
         id: doc.id,
       }));
 
-      console.log(actualData);
       setUserData({ userName: actualData[0].userName });
       return response;
     } catch (error) {

@@ -6,8 +6,6 @@ export default function ChatList(props) {
   const sender = props.sender;
   const messages = props.messages;
 
-  console.log(messages);
-
   return (
     <ul className={classes.chatList}>
       {messages.map((message) => (

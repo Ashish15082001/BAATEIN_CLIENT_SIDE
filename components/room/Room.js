@@ -16,14 +16,12 @@ export default function Room() {
 
   useEffect(() => {
     socket.on("joined room", (messages) => {
-      console.log(messages, messages.messages);
       if (messages.messages === 0) return;
 
       setMessages(messages.messages);
     });
 
     socket.on("recieved message", (messages) => {
-      console.log("messages : ", messages);
       setMessages(messages.messages);
     });
 
