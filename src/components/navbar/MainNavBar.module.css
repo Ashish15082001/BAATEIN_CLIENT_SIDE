@@ -1,0 +1,107 @@
+.mainNavBar {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  align-items: center;
+  background-color: rgb(39, 52, 67);
+  color: white;
+  position: sticky;
+  height: 5rem;
+  width: 100%;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  font-family: "Lobster", cursive;
+  letter-spacing: 0.14rem;
+}
+
+.linkList {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 30rem;
+}
+
+.linkItem {
+  list-style: none;
+  margin: 0 0.5rem;
+}
+
+/* HUMBURGER %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% */
+
+.HamburgerMenuListContainer {
+  position: absolute;
+  top: 100%;
+  background-color: rgb(39, 52, 67);
+  color: white;
+  width: 15rem;
+  right: 0;
+  padding: 2rem 1rem;
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid white;
+  height: calc(100vh - 5rem);
+  font-size: large;
+}
+
+.HamburgerMenuLinkList {
+  width: 100%;
+}
+
+.HamburgerMenuLlinkItem {
+  list-style: none;
+  text-align: center;
+  padding: 1.5rem 1rem;
+  transition: all 0.2s ease-in-out;
+  border-bottom: 0.5px solid rgba(71, 78, 87, 0.562);
+}
+
+.HamburgerMenuLlinkItem:hover {
+  background-color: rgba(71, 78, 87, 0.562);
+  /* box-shadow: 0 0 0.2rem 0rem rgba(255, 255, 255, 0.562); */
+}
+
+/* GENERAL STYLE */
+
+@media screen and (max-width: 800px) {
+  .linkList {
+    display: none;
+  }
+}
+@media screen and (min-width: 800px) {
+  .HamburgerMenuListContainer {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .HamburgerMenuListContainer {
+    display: none;
+  }
+}
+
+.logoutButton {
+  padding: 0.5rem;
+  border: 1px solid white;
+  width: 5rem;
+  border-radius: 6px;
+  transition: 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.logoutButton:hover {
+  padding: 0.5rem;
+  color: white;
+  border: 1px solid white;
+  background-color: rgb(39, 52, 67);
+  width: 5rem;
+  border-radius: 6px;
+}
+
+.linkItem a,
+.HamburgerMenuLlinkItem a {
+  color: white;
+  text-decoration: none;
+}
