@@ -8,7 +8,7 @@ import React, {
 } from "react";
 import io from "socket.io-client";
 import { v4 } from "uuid";
-import { AuthContext, useAuth } from "./authcontext";
+import { AuthContext } from "./authcontext";
 export const socket = io("http://localhost:8000");
 
 export const SocketContext = React.createContext({
