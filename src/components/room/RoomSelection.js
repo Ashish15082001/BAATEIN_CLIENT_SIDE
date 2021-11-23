@@ -1,7 +1,7 @@
 import { Button } from "@chakra-ui/button";
 import { Input } from "@chakra-ui/input";
 import { useToast } from "@chakra-ui/react";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { v4 } from "uuid";
 import { socket } from "../..";
 import { useAuth } from "../../context/authcontext";
@@ -14,7 +14,7 @@ export default function RoomSelection() {
   const [isCreatingRoom, setIsCreatingRoom] = useState(false);
   const [isJoiningRoom, setIsJoiningRoom] = useState(false);
   const { currentUser } = useAuth();
-  const [isRoomCreated, setIsRoomCreated] = useState(false);
+  // const [isRoomCreated, setIsRoomCreated] = useState(false);
   const [isShowRoomCreatedModal, setIsShowRoomCreatedModal] = useState(false);
   const [generatedRoomId, setGeneratedRoomId] = useState();
   const [isRoomJoined, setIsRoomJoined] = useState(false);
@@ -23,11 +23,20 @@ export default function RoomSelection() {
   const toast = useToast();
   const userName = currentUser.email;
 
+  const close = useCallback(
+    function () {
+      if (toastIdRef.current) {
+        toast.close(toastIdRef.current);
+      }
+    },
+    [toastIdRef, toast]
+  );
+
   useEffect(() => {
     socket.on("room created", ({ newRoomId }) => {
       console.log("room created", newRoomId);
       setIsCreatingRoom(false);
-      setIsRoomCreated(true);
+      // setIsRoomCreated(true);
       setIsShowRoomCreatedModal(true);
       setGeneratedRoomId(newRoomId);
     });
@@ -57,7 +66,7 @@ export default function RoomSelection() {
         isClosable: true,
       });
     });
-  }, []);
+  }, [close, toast]);
 
   const onRoomIdChange = function (event) {
     setRoomId(event.target.value);
@@ -89,12 +98,6 @@ export default function RoomSelection() {
 
   const closeRoomCreatedModal = function () {
     setIsShowRoomCreatedModal(false);
-  };
-
-  const close = function () {
-    if (toastIdRef.current) {
-      toast.close(toastIdRef.current);
-    }
   };
 
   const onSaveGeneratedRoomId = function () {
