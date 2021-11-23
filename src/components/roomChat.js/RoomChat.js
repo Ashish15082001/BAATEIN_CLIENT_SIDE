@@ -8,7 +8,7 @@ import classes from "./RoomChat.module.css";
 export default function RoomChat(props) {
   const { userName } = props;
   const joinedRoomData = props.joinedRoomData;
-  const { createdBy, roomId, members } = joinedRoomData;
+  const { roomId, members } = joinedRoomData;
   const [messages, setMessages] = useState(props.joinedRoomData.messages);
   const [typedMessage, setTypedMessage] = useState("");
   const chatListRef = useRef(null);
