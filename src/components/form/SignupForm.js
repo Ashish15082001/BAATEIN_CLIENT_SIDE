@@ -81,6 +81,16 @@ const SignUpForm = function () {
       return;
     }
 
+    if (newPassword.length < 8) {
+      toastIdRef.current = toast({
+        description: "password length must be >=8",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+
+      return;
+    }
     setIsSigningUp(true);
     register(email, newPassword)
       .then((Response) => {
