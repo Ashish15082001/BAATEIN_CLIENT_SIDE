@@ -9,9 +9,10 @@ import ReactScollableFeed from "react-scrollable-feed";
 export default function RoomChat(props) {
   const { userName } = props;
   const joinedRoomData = props.joinedRoomData;
-  const { roomId, members } = joinedRoomData;
+  const { roomId } = joinedRoomData;
   const [messages, setMessages] = useState(props.joinedRoomData.messages);
   const [typedMessage, setTypedMessage] = useState("");
+  const [members, setMembers] = useState(props.joinedRoomData.members);
 
   const onTypedMessageChanged = function (event) {
     setTypedMessage(event.target.value);
@@ -20,6 +21,11 @@ export default function RoomChat(props) {
   useEffect(() => {
     socket.on("recieve message", ({ message, sender }) => {
       setMessages((oldMessages) => [...oldMessages, { message, sender }]);
+    });
+
+    socket.on("update active users", ({ updatedMembers }) => {
+      console.log("hi");
+      setMembers(updatedMembers);
     });
   }, []);
 
@@ -45,7 +51,9 @@ export default function RoomChat(props) {
           <ReactScollableFeed>
             <ul className={classes.activeUsersList}>
               {members.map((member) => (
-                <li key={v4()}>{member}</li>
+                <li className={classes.activeUsersListMember} key={v4()}>
+                  {member}
+                </li>
               ))}
             </ul>
           </ReactScollableFeed>
