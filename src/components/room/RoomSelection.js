@@ -16,9 +16,9 @@ export default function RoomSelection() {
   const { currentUser } = useAuth();
   // const [isRoomCreated, setIsRoomCreated] = useState(false);
   const [isShowRoomCreatedModal, setIsShowRoomCreatedModal] = useState(false);
-  const [generatedRoomId, setGeneratedRoomId] = useState();
+  const [generatedRoomId, setGeneratedRoomId] = useState(null);
   const [isRoomJoined, setIsRoomJoined] = useState(false);
-  const [joinedRoomData, setJoinedRoomData] = useState();
+  const [joinedRoomData, setJoinedRoomData] = useState(null);
   const toastIdRef = useRef();
   const toast = useToast();
   const userName = currentUser.email;
@@ -46,7 +46,6 @@ export default function RoomSelection() {
       setJoinedRoomData(roomData);
       setIsRoomJoined(true);
 
-      console.log(roomData);
       close();
       toastIdRef.current = toast({
         description: "room joined successfully",
@@ -92,6 +91,8 @@ export default function RoomSelection() {
       return;
     }
     setIsJoiningRoom(true);
+    setJoinedRoomData(null);
+    setIsRoomJoined(false);
 
     socket.emit("join room", { roomId, userName });
   };
