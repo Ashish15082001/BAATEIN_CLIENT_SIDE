@@ -1,131 +1,58 @@
 import { Button } from "@chakra-ui/button";
 import { Input } from "@chakra-ui/input";
-import { useToast } from "@chakra-ui/react";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { v4 } from "uuid";
-import { socket } from "../..";
-import { useAuth } from "../../context/authcontext";
-import RoomCreatedModal from "../modals/RoomCreatedModal";
+import React, { useContext, useState } from "react";
+import { SocketContext } from "../../context/socketContext";
 import RoomChat from "../roomChat.js/RoomChat";
 import classes from "./RoomSelection.module.css";
+import RoomCreatedModal from "../modals/RoomCreatedModal";
 
 export default function RoomSelection() {
   const [roomId, setRoomId] = useState("");
-  const [isCreatingRoom, setIsCreatingRoom] = useState(false);
-  const [isJoiningRoom, setIsJoiningRoom] = useState(false);
-  const { currentUser } = useAuth();
-  // const [isRoomCreated, setIsRoomCreated] = useState(false);
-  const [isShowRoomCreatedModal, setIsShowRoomCreatedModal] = useState(false);
-  const [generatedRoomId, setGeneratedRoomId] = useState(null);
-  const [isRoomJoined, setIsRoomJoined] = useState(false);
-  const [joinedRoomData, setJoinedRoomData] = useState(null);
-  const toastIdRef = useRef();
-  const toast = useToast();
-  const userName = currentUser.email;
-
-  const close = useCallback(
-    function () {
-      if (toastIdRef.current) {
-        toast.close(toastIdRef.current);
-      }
-    },
-    [toastIdRef, toast]
-  );
-
-  useEffect(() => {
-    socket.on("room created", ({ newRoomId }) => {
-      console.log("room created", newRoomId);
-      setIsCreatingRoom(false);
-      // setIsRoomCreated(true);
-      setIsShowRoomCreatedModal(true);
-      setGeneratedRoomId(newRoomId);
-    });
-
-    socket.on("room joined", ({ roomData }) => {
-      setIsJoiningRoom(false);
-      setJoinedRoomData(roomData);
-      setIsRoomJoined(true);
-
-      close();
-      toastIdRef.current = toast({
-        description: "room joined successfully",
-        status: "success",
-        duration: 4000,
-        isClosable: true,
-      });
-    });
-
-    socket.on("can not join", ({ reason }) => {
-      close();
-      setIsJoiningRoom(false);
-      toastIdRef.current = toast({
-        description: reason,
-        status: "error",
-        duration: 4000,
-        isClosable: true,
-      });
-    });
-  }, [close, toast]);
+  const {
+    createRoom,
+    isCreatingRoom,
+    joinRoom,
+    isJoiningRoom,
+    isShowRoomCreatedModal,
+    generatedRoomId,
+    closeRoomCreatedModal,
+    isRoomJoined,
+  } = useContext(SocketContext);
 
   const onRoomIdChange = function (event) {
     setRoomId(event.target.value);
   };
 
   const onCreateRoom = function () {
-    setIsCreatingRoom(true);
-    setGeneratedRoomId(undefined);
-    const newRoomId = v4();
-
-    socket.emit("create room", { newRoomId, userName });
+    createRoom();
   };
 
   const onJoinRoom = function () {
-    close();
-    if (roomId === "") {
-      toastIdRef.current = toast({
-        description: "please enter room id",
-        status: "warning",
-        duration: 4000,
-        isClosable: true,
-      });
-      return;
-    }
-    setIsJoiningRoom(true);
-    setJoinedRoomData(null);
-    setIsRoomJoined(false);
-
-    socket.emit("join room", { roomId, userName });
+    joinRoom(roomId);
   };
 
-  const closeRoomCreatedModal = function () {
-    setIsShowRoomCreatedModal(false);
+  const oncloseRoomCreatedModal = function () {
+    closeRoomCreatedModal();
   };
 
   const onSaveGeneratedRoomId = function () {
-    close();
-    setIsShowRoomCreatedModal(false);
     setRoomId(generatedRoomId);
-    toastIdRef.current = toast({
-      description: "new room id is copied.",
-      status: "success",
-      duration: 4000,
-      isClosable: true,
-    });
+    closeRoomCreatedModal();
   };
 
   return (
     <React.Fragment>
-      {isRoomJoined && (
-        <RoomChat joinedRoomData={joinedRoomData} userName={userName} />
-      )}
-      {!isRoomJoined && (
+      {isRoomJoined && <RoomChat />}
+
+      {isShowRoomCreatedModal && (
         <RoomCreatedModal
           isOpen={isShowRoomCreatedModal}
-          onClose={closeRoomCreatedModal}
+          onClose={oncloseRoomCreatedModal}
           generatedRoomId={generatedRoomId}
           onSaveGeneratedRoomId={onSaveGeneratedRoomId}
         />
       )}
+
       {!isRoomJoined && (
         <div className={classes.mainContainer}>
           <div className={classes.leftContainer}>

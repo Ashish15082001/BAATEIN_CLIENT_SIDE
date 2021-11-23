@@ -9,8 +9,6 @@ import RoomSelectionPage from "./pages/RoomSelectionPage";
 export default function AppRouter() {
   const { currentUser } = useAuth();
 
-  console.log(currentUser);
-
   return (
     <Routes>
       <Route

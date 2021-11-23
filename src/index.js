@@ -7,19 +7,19 @@ import { BrowserRouter } from "react-router-dom";
 import ContextProvider from "./context/authcontext";
 
 import { ChakraProvider } from "@chakra-ui/react";
-
-import io from "socket.io-client";
-export const socket = io("https://baatein-by-ashish.herokuapp.com");
+import SocketContextProvider from "./context/socketContext";
 
 ReactDOM.render(
   <React.StrictMode>
-    <ContextProvider>
-      <ChakraProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </ChakraProvider>
-    </ContextProvider>
+    <ChakraProvider>
+      <ContextProvider>
+        <SocketContextProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </SocketContextProvider>
+      </ContextProvider>
+    </ChakraProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

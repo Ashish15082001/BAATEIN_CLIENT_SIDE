@@ -1,45 +1,26 @@
 import { Button } from "@chakra-ui/button";
 import { Input } from "@chakra-ui/input";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { v4 } from "uuid";
-import { socket } from "../..";
 import classes from "./RoomChat.module.css";
 import ReactScollableFeed from "react-scrollable-feed";
+import { SocketContext } from "../../context/socketContext";
+import { AuthContext } from "../../context/authcontext";
 
-export default function RoomChat(props) {
-  const { userName } = props;
-  const joinedRoomData = props.joinedRoomData;
-  const { roomId } = joinedRoomData;
-  const [messages, setMessages] = useState(props.joinedRoomData.messages);
+export default function RoomChat() {
   const [typedMessage, setTypedMessage] = useState("");
-  const [members, setMembers] = useState(props.joinedRoomData.members);
+  const { sendMessage, messages, roomMembers } = useContext(SocketContext);
+  const authContext = useContext(AuthContext);
+  const userName = authContext.currentUser?.email;
 
   const onTypedMessageChanged = function (event) {
     setTypedMessage(event.target.value);
   };
 
-  useEffect(() => {
-    socket.on("recieve message", ({ message, sender }) => {
-      setMessages((oldMessages) => [...oldMessages, { message, sender }]);
-    });
-
-    socket.on("update active users", ({ updatedMembers }) => {
-      console.log("hi");
-      setMembers(updatedMembers);
-    });
-  }, []);
-
   const onSendMessage = function () {
     if (typedMessage === "") return;
 
-    socket.emit("send message", {
-      roomId,
-      sender: userName,
-      message: typedMessage,
-    });
-    setMessages((oldMessages) => {
-      return [...oldMessages, { message: typedMessage, sender: userName }];
-    });
+    sendMessage(typedMessage);
     setTypedMessage("");
   };
 
@@ -50,7 +31,7 @@ export default function RoomChat(props) {
           <h2>Active users</h2>
           <ReactScollableFeed>
             <ul className={classes.activeUsersList}>
-              {members.map((member) => (
+              {roomMembers.map((member) => (
                 <li className={classes.activeUsersListMember} key={v4()}>
                   {member}
                 </li>
