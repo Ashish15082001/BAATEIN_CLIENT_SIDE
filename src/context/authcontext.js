@@ -6,7 +6,7 @@ import {
   sendPasswordResetEmail,
 } from "@firebase/auth";
 import { addDoc, collection, getDocs, query, where } from "@firebase/firestore";
-import React from "react";
+import React, { useCallback } from "react";
 import { useState, useEffect, useContext } from "react";
 import { auth, db } from "../firebase/firebase";
 
@@ -46,7 +46,7 @@ const ContextProvider = function (props) {
     return addDoc(usersCollection, { email, userName });
   };
 
-  const getCurrentUserDetails = async function (email) {
+  const getCurrentUserDetails = useCallback(async function (email) {
     const q = query(usersCollection, where("email", "==", email));
     let userDataDetails;
 
@@ -55,7 +55,7 @@ const ContextProvider = function (props) {
       userDataDetails = doc.data();
     });
     setCurrentUserDetails(userDataDetails);
-  };
+  }, []);
 
   const signIn = function (email, passsword) {
     return signInWithEmailAndPassword(auth, email, passsword);
