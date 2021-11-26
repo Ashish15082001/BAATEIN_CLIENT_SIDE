@@ -13,7 +13,7 @@
   background-color: rgba(71, 78, 87, 0.562);
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 768px) {
   .hamburger {
     display: inline;
   }

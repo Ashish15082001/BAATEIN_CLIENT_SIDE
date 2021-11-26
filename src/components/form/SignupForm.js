@@ -14,7 +14,7 @@ const SignUpForm = function () {
   const navigate = useNavigate();
   const toastIdRef = useRef();
   const toast = useToast();
-  const { register } = useAuth();
+  const { register, registerUserOnDatabase } = useAuth();
 
   const isMounted = useRef(false);
 
@@ -93,16 +93,21 @@ const SignUpForm = function () {
     }
     setIsSigningUp(true);
     register(email, newPassword)
-      .then((Response) => {
-        console.log(Response);
-        toastIdRef.current = toast({
-          description: "successfully signedup in.",
-          status: "success",
-          duration: 5000,
-          isClosable: true,
-        });
+      .then(() => {
+        registerUserOnDatabase(email, userName)
+          .then(() => {
+            toastIdRef.current = toast({
+              description: "successfully signed up.",
+              status: "success",
+              duration: 5000,
+              isClosable: true,
+            });
 
-        navigate("/home-page");
+            navigate("/home-page");
+          })
+          .catch((err) => {
+            throw new Error(err.message);
+          });
       })
       .catch((err) => {
         toastIdRef.current = toast({

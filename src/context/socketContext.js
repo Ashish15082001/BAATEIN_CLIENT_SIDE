@@ -41,7 +41,7 @@ const SocketContextProvider = function (props) {
   const toastIdRef = useRef();
   const toast = useToast();
   const authContext = useContext(AuthContext);
-  const userName = authContext.currentUser?.email;
+  const userName = authContext.currentUserDetails?.userName;
 
   const close = useCallback(
     function () {
@@ -139,7 +139,7 @@ const SocketContextProvider = function (props) {
     });
   };
 
-  const closeRoomCreatedModal = function (toast) {
+  const closeRoomCreatedModal = function () {
     setIsShowRoomCreatedModal(false);
     close();
   };

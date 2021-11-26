@@ -75,9 +75,7 @@ const MainNavBar = function () {
               <Link to="/home-page/room">room</Link>
             </li>
             <li className={classes.HamburgerMenuLlinkItem}>
-            <button className={classes.logoutButton} onClick={logOut}>
-              logout
-            </button>
+              <Link to="/">logout</Link>
             </li>
           </ul>
         </div>

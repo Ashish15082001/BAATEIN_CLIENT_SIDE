@@ -69,7 +69,6 @@ const LoginForm = function () {
 
     signIn(email, password)
       .then((Response) => {
-        console.log(Response);
         toastIdRef.current = toast({
           description: "successfully logged in.",
           status: "success",

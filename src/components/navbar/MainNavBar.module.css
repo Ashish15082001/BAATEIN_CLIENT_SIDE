@@ -41,7 +41,6 @@
   padding: 2rem 1rem;
   display: flex;
   justify-content: center;
-  border-top: 1px solid white;
   height: calc(100vh - 5rem);
   font-size: large;
 }
@@ -65,18 +64,12 @@
 
 /* GENERAL STYLE */
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 768px) {
   .linkList {
     display: none;
   }
 }
-@media screen and (min-width: 800px) {
-  .HamburgerMenuListContainer {
-    display: none;
-  }
-}
-
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 768px) {
   .HamburgerMenuListContainer {
     display: none;
   }

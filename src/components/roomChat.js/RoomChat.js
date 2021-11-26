@@ -11,7 +11,7 @@ export default function RoomChat() {
   const [typedMessage, setTypedMessage] = useState("");
   const { sendMessage, messages, roomMembers } = useContext(SocketContext);
   const authContext = useContext(AuthContext);
-  const userName = authContext.currentUser?.email;
+  const userName = authContext.currentUserDetails?.userName;
 
   const onTypedMessageChanged = function (event) {
     setTypedMessage(event.target.value);
@@ -27,18 +27,22 @@ export default function RoomChat() {
   return (
     <div className={classes.roomContainer}>
       <div className={classes.mainContainer}>
+        {/* <ReactScollableFeed> */}
         <div className={classes.activeUsersContainer}>
-          <h2>Active users</h2>
-          <ReactScollableFeed>
-            <ul className={classes.activeUsersList}>
-              {roomMembers.map((member) => (
-                <li className={classes.activeUsersListMember} key={v4()}>
-                  {member}
-                </li>
-              ))}
-            </ul>
-          </ReactScollableFeed>
+          <h2 className={classes.activeUsersHeading}>
+            Members
+            <sup>{roomMembers.length}</sup>
+          </h2>
+
+          <ul className={classes.activeUsersList}>
+            {roomMembers.map((member) => (
+              <li className={classes.activeUsersListMember} key={v4()}>
+                {member}
+              </li>
+            ))}
+          </ul>
         </div>
+        {/* </ReactScollableFeed> */}
         <div className={classes.chatContainer}>
           <div className={classes.actualContainer}>
             <ul className={classes.messageList}>
@@ -65,7 +69,10 @@ export default function RoomChat() {
                     >
                       {messageItem.message}
                       <span className={classes.messageSenderName}>
-                        ~{messageItem.sender}
+                        ~
+                        {userName === messageItem.sender
+                          ? "you"
+                          : messageItem.sender}
                       </span>
                     </p>
                   </li>
@@ -81,7 +88,7 @@ export default function RoomChat() {
               placeholder="type"
             ></Input>
             <Button onClick={onSendMessage} colorScheme="teal">
-              Button
+              Send
             </Button>
           </div>
         </div>
