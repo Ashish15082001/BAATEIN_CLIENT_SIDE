@@ -9,7 +9,7 @@ import React, {
 import io from "socket.io-client";
 import { v4 } from "uuid";
 import { AuthContext } from "./authcontext";
-export const socket = io("http://localhost:8000");
+export const socket = io("https://baatein-by-ashish.herokuapp.com");
 
 export const SocketContext = React.createContext({
   createRoom: () => {},
