@@ -36,7 +36,7 @@ const ContextProvider = function (props) {
       setCurrentUser(user);
     });
     return () => unsubsribe();
-  }, []);
+  }, [getCurrentUserDetails, setCurrentUser]);
 
   const register = function (email, passsword) {
     return createUserWithEmailAndPassword(auth, email, passsword);
