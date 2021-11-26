@@ -28,6 +28,20 @@ const ContextProvider = function (props) {
   const usersCollection = collection(db, "users");
   const [currentUserDetails, setCurrentUserDetails] = useState(null);
 
+  const getCurrentUserDetails = useCallback(
+    async function (email) {
+      const q = query(usersCollection, where("email", "==", email));
+      let userDataDetails;
+
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        userDataDetails = doc.data();
+      });
+      setCurrentUserDetails(userDataDetails);
+    },
+    [usersCollection]
+  );
+
   useEffect(() => {
     const unsubsribe = onAuthStateChanged(auth, (user) => {
       if (user) getCurrentUserDetails(user.email);
@@ -45,17 +59,6 @@ const ContextProvider = function (props) {
   const registerUserOnDatabase = function (email, userName) {
     return addDoc(usersCollection, { email, userName });
   };
-
-  const getCurrentUserDetails = useCallback(async function (email) {
-    const q = query(usersCollection, where("email", "==", email));
-    let userDataDetails;
-
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      userDataDetails = doc.data();
-    });
-    setCurrentUserDetails(userDataDetails);
-  }, []);
 
   const signIn = function (email, passsword) {
     return signInWithEmailAndPassword(auth, email, passsword);
