@@ -3,13 +3,12 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBXkBx3TZ6VUjDoOZokgFgSwTEnxn0oibY",
-  authDomain: "baatein-chat-app.firebaseapp.com",
-  databaseURL: "https://baatein-chat-app-default-rtdb.firebaseio.com",
-  projectId: "baatein-chat-app",
-  storageBucket: "baatein-chat-app.appspot.com",
-  messagingSenderId: "16506485751",
-  appId: "1:16506485751:web:458970b5ba9487d9940cf2",
+  apiKey: "AIzaSyCcKL-vOaC4ReQDKveHEhLjd1gZwIeGy0M",
+  authDomain: "baatien-testing.firebaseapp.com",
+  projectId: "baatien-testing",
+  storageBucket: "baatien-testing.appspot.com",
+  messagingSenderId: "561535186072",
+  appId: "1:561535186072:web:29bc5b7ab16dc81faa4ced",
 };
 
 const app = initializeApp(firebaseConfig);

@@ -8,15 +8,18 @@ import ContextProvider from "./context/authcontext";
 
 import { ChakraProvider } from "@chakra-ui/react";
 import SocketContextProvider from "./context/socketContext";
+import FriendsContextProvider from "./context/friendsContext";
 
 ReactDOM.render(
   <React.StrictMode>
     <ChakraProvider>
       <ContextProvider>
         <SocketContextProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
+          <FriendsContextProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </FriendsContextProvider>
         </SocketContextProvider>
       </ContextProvider>
     </ChakraProvider>

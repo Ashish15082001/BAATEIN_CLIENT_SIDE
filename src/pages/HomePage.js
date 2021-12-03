@@ -7,7 +7,7 @@ export default function HomePage() {
 
   return (
     <React.Fragment>
-      <div>
+      <div style={{ width: "100%", overflowX: 'hidden' }}>
         <h1>inside home page</h1>
         <chakra.pre>
           <p>{JSON.stringify(currentUser, null, 2)}</p>

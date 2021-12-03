@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 
 const RoomCreatedModal = function (props) {
-  const { isOpen, onClose, generatedRoomId, onSaveGeneratedRoomId } = props;
+  const { isOpen, onClose, generatedRoomId } = props;
 
   return (
     <>
@@ -23,12 +23,7 @@ const RoomCreatedModal = function (props) {
             Your new room id is <strong>{generatedRoomId}</strong>. Click on{" "}
             <strong>Save</strong> to copy id into room-id field.
           </ModalBody>
-
-          <ModalFooter>
-            <Button onClick={onSaveGeneratedRoomId} colorScheme="blue" mr={3}>
-              Save
-            </Button>
-          </ModalFooter>
+          <ModalFooter></ModalFooter>
         </ModalContent>
       </Modal>
     </>

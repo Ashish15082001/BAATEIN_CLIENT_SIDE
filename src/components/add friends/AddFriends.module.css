@@ -1,0 +1,44 @@
+.FriendsListContainer {
+  height: calc(100vh - 5rem);
+  width: 100%;
+  padding: 2rem;
+  overflow-y: scroll;
+}
+
+.profilePic {
+  width: 100px;
+  display: inline-block;
+}
+
+.list {
+  list-style: none;
+  display: flex;
+  align-content: flex-start;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.listItem {
+  width: 300px;
+  padding: 1rem;
+  margin: 2rem;
+  box-shadow: 0 0 2rem 0 grey;
+  border-radius: 0.5rem;
+}
+
+.profileCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.userName {
+  text-align: center;
+}
+
+.email {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-style: italic;
+}

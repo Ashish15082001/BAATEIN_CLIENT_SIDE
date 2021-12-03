@@ -5,16 +5,22 @@ import LoginForm from "./components/form/LoginForm";
 import HomePage from "./pages/HomePage";
 import SignupForm from "./components/form/SignupForm";
 import RoomSelectionPage from "./pages/RoomSelectionPage";
+import RoomWithIdPage from "./pages/RoomWithIdPage";
+import AddFriendsPage from "./pages/AddFriendsPage";
+import MessengerPage from "./pages/MessengerPage";
+import RoomChat from "./components/roomChat/RoomChat";
 
 export default function AppRouter() {
-  const { currentUser } = useAuth();
+  const { currentUserDetails } = useAuth();
+
+  // console.log('inside approuter')
 
   return (
     <Routes>
       <Route
         path="/"
         element={
-          currentUser ? (
+          currentUserDetails ? (
             <Navigate replace to="/home-page" />
           ) : (
             <Navigate replace to="/login" />
@@ -23,24 +29,74 @@ export default function AppRouter() {
       ></Route>
       <Route
         path="/home-page"
-        element={currentUser ? <HomePage /> : <Navigate replace to="/login" />}
+        element={
+          currentUserDetails ? <HomePage /> : <Navigate replace to="/login" />
+        }
       ></Route>
       <Route
         path="/signup"
         element={
-          currentUser ? <Navigate replace to="/home-page" /> : <SignupForm />
+          currentUserDetails ? (
+            <Navigate replace to="/home-page" />
+          ) : (
+            <SignupForm />
+          )
         }
       ></Route>
       <Route
         path="/login"
         element={
-          currentUser ? <Navigate replace to="/home-page" /> : <LoginForm />
+          currentUserDetails ? (
+            <Navigate replace to="/home-page" />
+          ) : (
+            <LoginForm />
+          )
         }
       ></Route>
       <Route
         path="/home-page/room"
         element={
-          currentUser ? <RoomSelectionPage /> : <Navigate replace to="/login" />
+          currentUserDetails ? (
+            <RoomSelectionPage />
+          ) : (
+            <Navigate replace to="/login" />
+          )
+        }
+      ></Route>
+      <Route
+        path="/home-page/room/:roomId"
+        element={
+          currentUserDetails ? (
+            <RoomWithIdPage />
+          ) : (
+            <Navigate replace to="/login" />
+          )
+        }
+      ></Route>
+      <Route
+        path="/home-page/add-friends"
+        element={
+          currentUserDetails ? (
+            <AddFriendsPage />
+          ) : (
+            <Navigate replace to="/login" />
+          )
+        }
+      ></Route>
+      <Route
+        path="/home-page/messenger-page"
+        element={
+          currentUserDetails ? (
+            <MessengerPage />
+          ) : (
+            <Navigate replace to="/login" />
+          )
+        }
+      ></Route>
+      <Route
+        path="/home-page/messenger-page/roomChat/:roomId"
+        element={
+          currentUserDetails ? <RoomChat /> : <Navigate replace to="/login" />
         }
       ></Route>
     </Routes>

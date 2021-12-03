@@ -3,10 +3,13 @@ import { useState } from "react";
 import HamburgerMenu from "./HamburgerMenu";
 import classes from "./MainNavBar.module.css";
 import { useAuth } from "../../context/authcontext";
+import { Badge } from "@chakra-ui/react";
+import { Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/button";
 
 const MainNavBar = function () {
   const [showHamburgerList, setShowHamburgerList] = useState(false);
-  const { signout, currentUser } = useAuth();
+  const { signout, currentUserDetails } = useAuth();
   const [isSigningOut, setIsSigningOut] = useState(false);
   const navigate = useNavigate();
 
@@ -16,15 +19,12 @@ const MainNavBar = function () {
     if (isSigningOut) return;
 
     setIsSigningOut(true);
-    // socket.emit("leave room", {
-    //   userName: context.userData.userName,
-    //   roomId: context.userData.roomId,
-    // });
     signout()
-      .then((response) => {
+      .then(() => {
+        setIsSigningOut(false);
         navigate("/login");
       })
-      .catch((err) => {});
+      .catch(() => {});
   };
 
   const onClickHamburger = function () {
@@ -33,31 +33,57 @@ const MainNavBar = function () {
 
   return (
     <nav className={classes.mainNavBar}>
-      <h1 className={classes.logo}>Baatein</h1>
+      <h1 className={classes.logo} onClick={() => navigate("/home-page")}>
+        Baatein<Badge colorScheme="purple">alpha</Badge>
+      </h1>
 
-      {currentUser && (
+      {currentUserDetails && (
         <ul className={classes.linkList}>
           <li className={classes.linkItem}>
             <Link to="#">friends</Link>
           </li>
           <li className={classes.linkItem}>
-            <Link to="#">add friends</Link>
+            <Link to="/home-page/add-friends">add friends</Link>
           </li>
           <li className={classes.linkItem}>
-            <Link to="#">messanger</Link>
+            <Link to="/home-page/messenger-page">messenger</Link>
           </li>
           <li className={classes.linkItem}>
             <Link to="/home-page/room">room</Link>
           </li>
           <li className={classes.linkItem}>
-            <button className={classes.logoutButton} onClick={logOut}>
-              logout
-            </button>
+            <Menu>
+              <MenuButton
+                className={classes.menuButton}
+                style={{
+                  backgroundColor: "#273443",
+                  border: "1px solid white",
+                }}
+                as={Button}
+              >
+                Profile
+              </MenuButton>
+              <MenuList style={{ backgroundColor: "#273443" }}>
+                <MenuItem className={classes.menuItem}>my profile</MenuItem>
+                <MenuItem className={classes.menuItem}>
+                  friend requests
+                </MenuItem>
+                <MenuItem className={classes.menuItem}>
+                  pending friend requests
+                </MenuItem>
+                <MenuItem className={classes.menuItem}>settings</MenuItem>
+                <MenuItem className={classes.menuItem} onClick={logOut}>
+                  logout
+                </MenuItem>
+              </MenuList>
+            </Menu>
           </li>
         </ul>
       )}
 
-      {currentUser && <HamburgerMenu onClickHamburger={onClickHamburger} />}
+      {currentUserDetails && (
+        <HamburgerMenu onClickHamburger={onClickHamburger} />
+      )}
 
       {showHamburgerList && (
         <div className={classes.HamburgerMenuListContainer}>

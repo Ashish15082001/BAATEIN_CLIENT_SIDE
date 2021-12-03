@@ -68,14 +68,7 @@ const LoginForm = function () {
     setIsSigningIn(true);
 
     signIn(email, password)
-      .then((Response) => {
-        toastIdRef.current = toast({
-          description: "successfully logged in.",
-          status: "success",
-          duration: 4000,
-          isClosable: true,
-        });
-
+      .then(() => {
         navigate("/home-page");
       })
       .catch((err) => {
