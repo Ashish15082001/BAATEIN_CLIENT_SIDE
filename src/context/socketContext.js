@@ -13,7 +13,7 @@ import io from "socket.io-client";
 import { v4 } from "uuid";
 import { AuthContext } from "./authcontext";
 
-export const socket = io("http://localhost:8000");
+export const socket = io("https://baatein-server-byashish.herokuapp.com/");
 
 export const SocketContext = React.createContext({
   createRoom: () => {},
@@ -122,7 +122,13 @@ const SocketContextProvider = function (props) {
       console.log("new message");
       updateActiveRoomMessages({ sender, message });
     });
-  }, [close, toast, updateActiveRoomMessages, updateActiveRoomMembers, storeSocketId]);
+  }, [
+    close,
+    toast,
+    updateActiveRoomMessages,
+    updateActiveRoomMembers,
+    storeSocketId,
+  ]);
 
   const createRoom = function () {
     const newRoomId = v4();
