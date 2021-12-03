@@ -49,8 +49,8 @@ const ContextProvider = function (props) {
   console.log("infinte render check....");
 
   const [currentUser, setCurrentUser] = useState(null);
-  const usersCollection = collection(db, "users");
-  const roomsCollection = collection(db, "rooms");
+  const [usersCollection] = useState(collection(db, "users"));
+  const [roomsCollection] = useState(collection(db, "rooms"));
 
   const [currentUserDetails, setCurrentUserDetails] = useState(null);
   const [currentSocketId, setCurrentSocketId] = useState(null);
@@ -59,29 +59,35 @@ const ContextProvider = function (props) {
 
   const [activeRoomData, setActiveRooData] = useState(null);
 
-  const getCurrentUserDetails = useCallback(async function (email) {
-    const q = query(usersCollection, where("email", "==", email));
-    let userDataDetails;
+  const getCurrentUserDetails = useCallback(
+    async function (email) {
+      const q = query(usersCollection, where("email", "==", email));
+      let userDataDetails;
 
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      userDataDetails = { FirebaseId: doc.id, ...doc.data() };
-    });
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        userDataDetails = { FirebaseId: doc.id, ...doc.data() };
+      });
 
-    setCurrentUserDetails({ ...userDataDetails });
-  }, []);
+      setCurrentUserDetails({ ...userDataDetails });
+    },
+    [usersCollection]
+  );
 
-  const getRoomData = useCallback(async function (roomId) {
-    const q = query(roomsCollection, where("roomId", "==", roomId));
-    let roomData;
+  const getRoomData = useCallback(
+    async function (roomId) {
+      const q = query(roomsCollection, where("roomId", "==", roomId));
+      let roomData;
 
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      roomData = { FirebaseId: doc.id, ...doc.data() };
-    });
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        roomData = { FirebaseId: doc.id, ...doc.data() };
+      });
 
-    return roomData;
-  }, []);
+      return roomData;
+    },
+    [roomsCollection]
+  );
 
   const addNewMemberToRoom = async function ({ roomId, userName }) {
     const roomData = await getRoomData(roomId);
@@ -173,9 +179,12 @@ const ContextProvider = function (props) {
     });
   };
 
-  const storeSocketId = function (socketId) {
-    setCurrentSocketId(socketId);
-  };
+  const storeSocketId = useCallback(
+    function (socketId) {
+      setCurrentSocketId(socketId);
+    },
+    [setCurrentSocketId]
+  );
 
   const updateCurrentUsersDetails = function (updatedData) {
     setCurrentUserDetails(updatedData);
@@ -187,24 +196,33 @@ const ContextProvider = function (props) {
     });
   };
 
-  const updateActiveRoomMembers = function (userName) {
-    console.log("inside update room memmers");
-    setActiveRooData((oldState) => {
-      if (oldState) {
-        const updatedRoomMembers = [userName, ...oldState.members];
-        return { ...oldState, members: updatedRoomMembers };
-      }
-    });
-  };
+  const updateActiveRoomMembers = useCallback(
+    function (userName) {
+      console.log("inside update room memmers");
+      setActiveRooData((oldState) => {
+        if (oldState) {
+          const updatedRoomMembers = [userName, ...oldState.members];
+          return { ...oldState, members: updatedRoomMembers };
+        }
+      });
+    },
+    [setActiveRooData]
+  );
 
-  const updateActiveRoomMessages = function ({ message, sender }) {
-    setActiveRooData((oldState) => {
-      if (oldState) {
-        const updatedRoomMessages = [...oldState.messages, { sender, message }];
-        return { ...oldState, messages: updatedRoomMessages };
-      }
-    });
-  };
+  const updateActiveRoomMessages = useCallback(
+    function ({ message, sender }) {
+      setActiveRooData((oldState) => {
+        if (oldState) {
+          const updatedRoomMessages = [
+            ...oldState.messages,
+            { sender, message },
+          ];
+          return { ...oldState, messages: updatedRoomMessages };
+        }
+      });
+    },
+    [setActiveRooData]
+  );
 
   if (isCurrentUserSocketUpdated === false) {
     if (currentSocketId && currentUserDetails) {

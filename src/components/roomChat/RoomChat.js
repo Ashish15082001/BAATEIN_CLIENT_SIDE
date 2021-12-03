@@ -25,7 +25,7 @@ export default function RoomChat() {
     updateActiveRoomData();
 
     return () => setActiveRooData(null);
-  }, []);
+  }, [getRoomData, setActiveRooData, roomId]);
 
   const onTypedMessageChanged = function (event) {
     setTypedMessage(event.target.value);

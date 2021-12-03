@@ -1,8 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import classes from "./Messenger.module.css";
 import { useAuth } from "../../context/authcontext";
 import { useNavigate } from "react-router";
-import { SocketContext } from "../../context/socketContext";
 
 export default function Messenger() {
   const { currentUserDetails } = useAuth();

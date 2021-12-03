@@ -5,12 +5,13 @@ import RoomChat from "../components/roomChat/RoomChat";
 
 export default function RoomWithIdPage() {
   const params = useParams();
+  const roomId = params.roomId;
   const { joinRoom, isJoiningRoom, isRoomJoined } = useContext(SocketContext);
   //   console.log('hi');
 
   useEffect(() => {
-    joinRoom(params.roomId);
-  }, []);
+    joinRoom(roomId);
+  }, [joinRoom, roomId]);
 
   return (
     <div>

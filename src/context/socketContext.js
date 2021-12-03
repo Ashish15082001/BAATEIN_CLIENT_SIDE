@@ -25,7 +25,6 @@ export const SocketContext = React.createContext({
   isShowRoomCreatedModal: false,
   // isJoiningRoom: false,
   generatedRoomId: null,
-  roomData: null,
 });
 
 const SocketContextProvider = function (props) {
@@ -37,8 +36,6 @@ const SocketContextProvider = function (props) {
 
   // it's 'current' property will store refrence to toast component.
   const toastIdRef = useRef();
-
-  const [roomData, setRoomData] = useState(null);
 
   // const [isJoiningRoom, setIsJoiningRoom] = useState(false);
 
@@ -125,7 +122,7 @@ const SocketContextProvider = function (props) {
       console.log("new message");
       updateActiveRoomMessages({ sender, message });
     });
-  }, [close, toast]);
+  }, [close, toast, updateActiveRoomMessages, updateActiveRoomMembers, storeSocketId]);
 
   const createRoom = function () {
     const newRoomId = v4();
@@ -209,7 +206,6 @@ const SocketContextProvider = function (props) {
         notifyOtherUser,
         generatedRoomId,
         isShowRoomCreatedModal,
-        roomData,
         sendRoomMessage,
       }}
     >

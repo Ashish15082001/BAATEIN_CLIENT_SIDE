@@ -24,7 +24,7 @@ export default function AddFriends() {
 
     getAddFriendsData();
     setIsLoadingAddFriendsList(false);
-  }, []);
+  }, [getAddFriends]);
 
   const onSendFriendRequest = function (otherUsersEmail) {
     const reciever = addFriends.filter(
