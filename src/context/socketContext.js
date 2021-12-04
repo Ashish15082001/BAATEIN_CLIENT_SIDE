@@ -13,7 +13,7 @@ import io from "socket.io-client";
 import { v4 } from "uuid";
 import { AuthContext } from "./authcontext";
 
-export const socket = io("https://baatein-server-byashish.herokuapp.com/");
+export const socket = io("https://baatein-server-byashish.herokuapp.com");
 
 export const SocketContext = React.createContext({
   createRoom: () => {},

@@ -3,12 +3,13 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCcKL-vOaC4ReQDKveHEhLjd1gZwIeGy0M",
-  authDomain: "baatien-testing.firebaseapp.com",
-  projectId: "baatien-testing",
-  storageBucket: "baatien-testing.appspot.com",
-  messagingSenderId: "561535186072",
-  appId: "1:561535186072:web:29bc5b7ab16dc81faa4ced",
+  apiKey: "AIzaSyAtq5MaEJQQXR6cMNzFZnQHK50AJzeVguY",
+  authDomain: "baatein-testing.firebaseapp.com",
+  projectId: "baatein-testing",
+  storageBucket: "baatein-testing.appspot.com",
+  messagingSenderId: "626274925739",
+  appId: "1:626274925739:web:2a9c121b7b7483e6918bee",
+  measurementId: "G-39S2FSG46L",
 };
 
 const app = initializeApp(firebaseConfig);
