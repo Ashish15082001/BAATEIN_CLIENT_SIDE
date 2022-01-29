@@ -7,6 +7,10 @@ import ReactScollableFeed from "react-scrollable-feed";
 import { useParams } from "react-router";
 import { useAuth } from "../../context/authcontext";
 import { SocketContext } from "../../context/socketContext";
+import {
+  getCurrentDateString,
+  getCurrentTimeString,
+} from "../utility/helperFunctions";
 
 export default function RoomChat() {
   const { getRoomData, setActiveRooData, activeRoomData, currentUserDetails } =
@@ -41,17 +45,22 @@ export default function RoomChat() {
   const onSendMessage = function () {
     if (typedMessage === "") return;
 
+    const dateString = getCurrentDateString();
+    const timeString = getCurrentTimeString();
+
     sendRoomMessage({
       message: typedMessage,
       sender: currentUserDetails.userName,
       roomId,
+      senderEmail: currentUserDetails.email,
+      date: dateString,
+      time: timeString,
     });
     setTypedMessage("");
   };
 
   if (activeRoomData) {
     const { messages, members: roomMembers } = activeRoomData;
-    const { userName } = currentUserDetails;
     return (
       <div className={classes.roomContainer}>
         <div className={classes.mainContainer}>
@@ -74,35 +83,65 @@ export default function RoomChat() {
           <div className={classes.chatContainer}>
             <div className={classes.actualContainer}>
               <ul className={classes.messageList}>
-                <ReactScollableFeed>
-                  {messages.map((messageItem) => (
+                <ReactScollableFeed className={classes.chatScroll}>
+                  {messages.map((messageItem, index, messages) => (
                     <li
                       className={
                         classes[
-                          userName === messageItem.sender
+                          currentUserDetails.email === messageItem.senderEmail
                             ? "selfMessage"
                             : "othersMessage"
                         ]
                       }
                       key={v4()}
                     >
-                      <p
+                      {(index === 0 ||
+                        messages[index - 1].date !== messages[index].date) && (
+                        <p className={classes.messageDate}>
+                          {getCurrentDateString() === messageItem.date
+                            ? "today"
+                            : messageItem.date}
+                        </p>
+                      )}
+                      <div
                         className={
                           classes[
-                            userName === messageItem.sender
+                            currentUserDetails.email === messageItem.senderEmail
                               ? "selfActualMessage"
                               : "othesrActualMessage"
                           ]
                         }
+                        style={{
+                          marginTop: `${
+                            index === 0 ||
+                            messages[index - 1].date !== messages[index].date
+                              ? "4.5rem"
+                              : 0
+                          }`,
+                        }}
                       >
-                        {messageItem.message}
-                        <span className={classes.messageSenderName}>
-                          ~
-                          {userName === messageItem.sender
-                            ? "you"
-                            : messageItem.sender}
-                        </span>
-                      </p>
+                        <p>
+                          {index === 0 && (
+                            <span className={classes.messageSender}>
+                              ~{messageItem.sender}
+                              <br></br>
+                            </span>
+                          )}
+                          {index !== 0 &&
+                            messages[index].sender !==
+                              messages[index - 1].sender && (
+                              <span className={classes.messageSender}>
+                                ~{messageItem.sender}
+                                <br></br>
+                              </span>
+                            )}
+                          {messageItem.message}
+                        </p>
+
+                        <p className={classes.messageTime}>
+                          {messageItem.time}
+                        </p>
+                      </div>
                     </li>
                   ))}
                 </ReactScollableFeed>

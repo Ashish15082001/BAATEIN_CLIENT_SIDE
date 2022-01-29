@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import classes from "./Form.module.css";
 import { Button, useToast } from "@chakra-ui/react";
 import { useAuth } from "../../context/authcontext";
+import { animated } from "react-spring";
 
 const LoginForm = function () {
   const [email, setEmail] = useState("");
@@ -69,6 +70,12 @@ const LoginForm = function () {
 
     signIn(email, password)
       .then(() => {
+        toastIdRef.current = toast({
+          description: "logged in successfully.",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
         navigate("/home-page");
       })
       .catch((err) => {
@@ -78,9 +85,7 @@ const LoginForm = function () {
           duration: 5000,
           isClosable: true,
         });
-      })
-      .finally(() => {
-        isMounted.current && setIsSigningIn(false);
+        setIsSigningIn(false);
       });
   };
 
@@ -90,7 +95,7 @@ const LoginForm = function () {
     if (email) {
       close();
       forgotPassword(email)
-        .then((Response) => {
+        .then(() => {
           toastIdRef.current = toast({
             description: "password reset email sent.",
             status: "success",
@@ -119,11 +124,9 @@ const LoginForm = function () {
   };
 
   return (
-    <div className={classes.formMegaContainer}>
+    <animated.div className={classes.formMegaContainer}>
       <div className={classes.formContainer}>
-        <div className={classes.introCard}>
-          <h1>Baatein</h1>
-        </div>
+        <div className={classes.introCard}></div>
         <div className={classes.mainform}>
           <div className={classes.mainformOne}>
             <p>{`Don't have account?`}</p>
@@ -211,7 +214,7 @@ const LoginForm = function () {
           </div>
         </div>
       </div>
-    </div>
+    </animated.div>
   );
 };
 

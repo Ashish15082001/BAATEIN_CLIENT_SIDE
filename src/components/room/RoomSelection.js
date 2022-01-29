@@ -57,6 +57,7 @@ export default function RoomSelection() {
     }
 
     if (isAlreadyRoomMember(roomId)) {
+      console.log("already joined");
       setIsShowAlreadyRoomMemberModal(true);
       return;
     }
@@ -65,6 +66,8 @@ export default function RoomSelection() {
       userName: currentUserDetails.userName,
       clientId: currentUserDetails.clientId,
     });
+
+    setRoomId("");
   };
 
   const oncloseIsShowAlreadyRoomMember = function () {

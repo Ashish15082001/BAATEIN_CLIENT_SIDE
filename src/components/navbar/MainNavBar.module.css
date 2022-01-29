@@ -3,7 +3,7 @@
   justify-content: space-between;
   padding: 1rem;
   align-items: center;
-  background-color: rgb(39, 52, 67);
+  background-color: var(--primary-color);
   color: white;
   position: sticky;
   height: 5rem;
@@ -28,6 +28,9 @@
 .linkItem {
   list-style: none;
   margin: 0 0.5rem;
+  border: 1px solid #273443;
+  padding: 5px 0;
+  transition: 0.3s all ease-in-out;
 }
 
 /* HUMBURGER %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% */
@@ -35,7 +38,7 @@
 .HamburgerMenuListContainer {
   position: absolute;
   top: 100%;
-  background-color: rgb(39, 52, 67);
+  background-color: var(--primary-color);
   color: white;
   width: 15rem;
   right: 0;
@@ -89,17 +92,12 @@
   padding: 0.5rem;
   color: white;
   border: 1px solid white;
-  background-color: rgb(39, 52, 67);
+  background-color: var(--primary-color);
   width: 5rem;
   border-radius: 6px;
 }
 
 .linkItem a,
 .HamburgerMenuLlinkItem a {
-  color: white;
   text-decoration: none;
-}
-
-.menuItem:hover {
-  color: rgb(39, 52, 67);
 }

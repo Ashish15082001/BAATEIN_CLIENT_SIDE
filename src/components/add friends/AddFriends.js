@@ -7,12 +7,17 @@ import { AuthContext } from "../../context/authcontext";
 import { FriendsContext } from "../../context/friendsContext";
 import { SocketContext } from "../../context/socketContext";
 import classes from "./AddFriends.module.css";
+import { NOTIFICATION } from "../../App";
 
 export default function AddFriends() {
   const [isLoadingAddFriendsList, setIsLoadingAddFriendsList] = useState(false);
   const { getAddFriends, addFriends } = useContext(FriendsContext);
-  const { updateCurrentUsersDetails, upDateUserData, currentUserDetails } =
-    useContext(AuthContext);
+  const {
+    updateCurrentUsersDetails,
+    upDateUserData,
+    currentUserDetails,
+    getAnyUserDetail,
+  } = useContext(AuthContext);
   const { notifyOtherUser } = useContext(SocketContext);
   const skeletonRepeater = [1, 2, 3, 4, 5];
 
@@ -20,49 +25,62 @@ export default function AddFriends() {
     setIsLoadingAddFriendsList(true);
     const getAddFriendsData = async function () {
       await getAddFriends();
+      setIsLoadingAddFriendsList(false);
     };
 
     getAddFriendsData();
-    setIsLoadingAddFriendsList(false);
   }, [getAddFriends]);
 
-  const onSendFriendRequest = function (otherUsersEmail) {
-    const reciever = addFriends.filter(
-      (friend) => friend.email === otherUsersEmail
-    )[0];
+  const onSendFriendRequest = async function ({ friendRequestReciever }) {
+    const friendRequestRecieverDetails = await getAnyUserDetail(
+      friendRequestReciever.email
+    );
+
+    const updatedFriendRequestSent = [
+      ...currentUserDetails.friendRequestSent,
+      {
+        email: friendRequestReciever.email,
+        userName: friendRequestReciever.userName,
+        FirebaseId: friendRequestReciever.FirebaseId,
+      },
+    ];
+
+    const updatedFriendRequestRecieved = [
+      ...friendRequestRecieverDetails.friendRequestRecieved,
+      {
+        email: currentUserDetails.email,
+        userName: currentUserDetails.userName,
+        FirebaseId: currentUserDetails.FirebaseId,
+      },
+    ];
 
     updateCurrentUsersDetails({
       ...currentUserDetails,
-      friendRequestSent: [
-        ...currentUserDetails.friendRequestSent,
-        { email: reciever.email, userName: reciever.userName },
-      ],
+      friendRequestSent: updatedFriendRequestSent,
     });
+
     upDateUserData(currentUserDetails.FirebaseId, {
-      friendRequestSent: [
-        ...currentUserDetails.friendRequestSent,
-        { email: reciever.email, userName: reciever.userName },
-      ],
+      friendRequestSent: updatedFriendRequestSent,
     });
 
-    upDateUserData(reciever.FirebaseId, {
-      friendRequestRecieved: [
-        ...reciever.friendRequestRecieved,
-        {
-          email: currentUserDetails.email,
-          userName: currentUserDetails.userName,
-        },
-      ],
+    upDateUserData(friendRequestRecieverDetails.FirebaseId, {
+      friendRequestRecieved: updatedFriendRequestRecieved,
     });
 
-    notifyOtherUser(reciever.currentSocketId, {
-      title: "new friend request",
-      userName: currentUserDetails.userName,
-      email: currentUserDetails.email,
+    notifyOtherUser(friendRequestRecieverDetails.currentSocketId, {
+      title: NOTIFICATION[0],
+      description: `${currentUserDetails.userName} with email id '${currentUserDetails.email}' sent you a friend request.`,
+      payload: {
+        email: currentUserDetails.email,
+        userName: currentUserDetails.userName,
+        FirebaseId: currentUserDetails.FirebaseId,
+      },
     });
   };
 
-  if (isLoadingAddFriendsList)
+  console.log(isLoadingAddFriendsList);
+
+  if (true)
     return (
       <div className={classes.FriendsListContainer}>
         {skeletonRepeater.map(() => (
@@ -108,7 +126,6 @@ export default function AddFriends() {
                   loadingText="sending request"
                   colorScheme="teal"
                   variant="outline"
-                  onClick={onSendFriendRequest.bind(this, friend.email)}
                 >
                   friend request sent
                 </Button>
@@ -118,7 +135,9 @@ export default function AddFriends() {
                   loadingText="sending request"
                   colorScheme="teal"
                   variant="outline"
-                  onClick={onSendFriendRequest.bind(this, friend.email)}
+                  onClick={onSendFriendRequest.bind(this, {
+                    friendRequestReciever: friend,
+                  })}
                 >
                   send friend request
                 </Button>

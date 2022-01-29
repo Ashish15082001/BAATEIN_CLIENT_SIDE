@@ -9,6 +9,7 @@ import RoomWithIdPage from "./pages/RoomWithIdPage";
 import AddFriendsPage from "./pages/AddFriendsPage";
 import MessengerPage from "./pages/MessengerPage";
 import RoomChat from "./components/roomChat/RoomChat";
+import PersonalChat from "./components/personalChat/PersonalChat";
 
 export default function AppRouter() {
   const { currentUserDetails } = useAuth();
@@ -97,6 +98,16 @@ export default function AppRouter() {
         path="/home-page/messenger-page/roomChat/:roomId"
         element={
           currentUserDetails ? <RoomChat /> : <Navigate replace to="/login" />
+        }
+      ></Route>
+      <Route
+        path="/home-page/messenger-page/personalChat/:chatId"
+        element={
+          currentUserDetails ? (
+            <PersonalChat />
+          ) : (
+            <Navigate replace to="/login" />
+          )
         }
       ></Route>
     </Routes>

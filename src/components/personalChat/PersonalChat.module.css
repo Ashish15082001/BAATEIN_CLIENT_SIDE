@@ -1,4 +1,4 @@
-.roomContainer {
+.container {
   height: calc(100vh - 5rem);
   width: 100%;
   display: flex;
@@ -11,48 +11,18 @@
   height: 90%;
   background-color: #fffffffb;
   backdrop-filter: blur(6rem);
-  width: 80%;
+  width: 90%;
+  max-width: 50rem;
   border-radius: 0.5rem;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
 }
 
-.activeUsersContainer {
-  border-radius: 1rem 0 0 1rem;
-  background-color: white;
-  border-right: 1px solid var(--primary-color);
-  width: 20%;
-  height: 95%;
-  position: relative;
-  overflow-y: scroll;
-  border-width: 1px 0 1px 1px;
-  border-color: var(--primary-color);
-}
-
-.activeUsersHeading {
-  text-align: center;
-  padding: 0.4rem 0;
-  box-shadow: 0 0 1rem 0 grey;
-  position: sticky;
-  top: 0;
-  background-color: white;
-}
-
-.activeUsersList {
-  list-style: none;
-  padding: 0.3rem;
-}
-
-.activeUsersListMember {
-  padding: 0.3rem;
-  border-bottom: 1px solid grey;
-}
-
 .chatContainer {
-  border-radius: 0 1rem 1rem 0;
+  border-radius: 1rem;
   height: 95%;
-  width: 70%;
+  width: 90%;
   background-color: #ffffff;
   border: 1px solid var(--primary-color);
 }
@@ -103,11 +73,6 @@
   text-align: right;
 }
 
-.messageSender {
-  font-size: 0.8rem;
-  color: rgb(219, 219, 219);
-}
-
 .messageDate {
   color: #273443;
   padding: 0.5rem;
@@ -119,6 +84,11 @@
   margin-top: 1rem;
   transform: translateX(-50%);
   border-radius: 1rem;
+}
+
+.messageSender {
+  font-size: 0.8rem;
+  color: rgb(219, 219, 219);
 }
 
 .selfMessage {

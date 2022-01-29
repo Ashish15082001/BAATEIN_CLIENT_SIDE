@@ -116,18 +116,14 @@ const SignUpForm = function () {
           duration: 5000,
           isClosable: true,
         });
-      })
-      .finally(() => {
-        isMounted.current && setIsSigningUp(false);
+        setIsSigningUp(false);
       });
   };
 
   return (
     <div className={classes.formMegaContainer}>
       <div className={classes.formContainer}>
-        <div className={classes.introCard}>
-          <h1>Baatein</h1>
-        </div>
+        <div className={classes.introCard}></div>
         <div className={classes.mainform}>
           <div className={classes.mainformOne}>
             <p>Already have account?</p>

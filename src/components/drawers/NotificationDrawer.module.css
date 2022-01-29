@@ -1,0 +1,43 @@
+.friendRequestContainer {
+  height: 25rem;
+  border: 1px solid grey;
+  padding: 0.5rem;
+  margin: 1rem 0;
+  overflow-y: scroll;
+}
+
+.friendRequestContainerHeading {
+  color: grey;
+  margin-bottom: 1rem;
+}
+
+.friendRequestListContainer {
+  border-top: 1px solid grey;
+}
+
+.friendRequestListContainerItem {
+  border-bottom: 1px solid grey;
+  list-style: none;
+  padding: 0.3rem;
+}
+
+.btnContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0.3rem 0;
+}
+
+.friendRequestContainer::-webkit-scrollbar {
+  width: 10px;
+}
+
+.friendRequestContainer::-webkit-scrollbar-track {
+  background-color: rgba(255, 255, 255, 0.432);
+}
+
+.friendRequestContainer::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);
+  border-radius: 5px;
+}
